@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dan Lockwood — Senior Lead Business Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal:#3CBF9E;
+    --teal-dark:#2A9B7F;
+    --bg:#f4f6f8;
+    --surface:#ffffff;
+    --ink:#1c2733;
+    --ink-soft:#5a6b7b;
+    --line:#e2e8ee;
+    --shadow:0 10px 30px rgba(28,39,51,.08);
+    --shadow-hover:0 18px 48px rgba(28,39,51,.16);
+  }
+  [data-theme="dark"]{
+    --bg:#0f1620;
+    --surface:#18222e;
+    --ink:#e8eef4;
+    --ink-soft:#9fb0c0;
+    --line:#26323f;
+    --shadow:0 10px 30px rgba(0,0,0,.35);
+    --shadow-hover:0 18px 48px rgba(0,0,0,.5);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Lato',sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.65;
+    transition:background .4s ease,color .4s ease;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4,.brand{font-family:'Montserrat',sans-serif}
+
+  /* ---------- Layout ---------- */
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  .layout{display:grid;grid-template-columns:200px 1fr;gap:48px;max-width:1180px;margin:0 auto;padding:0 24px}
+
+  /* ---------- Top bar ---------- */
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    background:color-mix(in srgb,var(--surface) 88%,transparent);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+    transition:background .4s ease;
+  }
+  .topbar-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;max-width:1180px;margin:0 auto}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-family:'Montserrat';letter-spacing:.5px}
+  .logo .dot{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--teal),var(--teal-dark));display:grid;place-items:center;color:#fff;font-size:15px;box-shadow:0 4px 14px rgba(60,191,158,.4)}
+  .controls{display:flex;gap:10px}
+  .btn{
+    font-family:'Montserrat';font-weight:600;font-size:13px;
+    border:1px solid var(--line);background:var(--surface);color:var(--ink);
+    padding:9px 16px;border-radius:10px;cursor:pointer;display:flex;align-items:center;gap:7px;
+    transition:.25s;
+  }
+  .btn:hover{border-color:var(--teal);color:var(--teal);transform:translateY(-1px)}
+  .btn.primary{background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff;border:none;box-shadow:0 6px 18px rgba(60,191,158,.35)}
+  .btn.primary:hover{color:#fff;box-shadow:0 10px 26px rgba(60,191,158,.5)}
+
+  /* ---------- Hero ---------- */
+  .hero{position:relative;padding:90px 0 70px;overflow:hidden}
+  .hero::before{
+    content:'';position:absolute;top:-120px;right:-120px;width:420px;height:420px;border-radius:50%;
+    background:radial-gradient(circle,rgba(60,191,158,.22),transparent 70%);z-index:0;
+  }
+  .hero-inner{position:relative;z-index:1;display:flex;align-items:center;gap:42px;flex-wrap:wrap}
+  .avatar{
+    width:140px;height:140px;border-radius:28px;flex-shrink:0;
+    background:linear-gradient(135deg,var(--teal),var(--teal-dark));
+    display:grid;place-items:center;color:#fff;font-family:'Montserrat';font-weight:800;font-size:48px;
+    box-shadow:0 18px 40px rgba(60,191,158,.4);
+  }
+  .hero h1{font-size:clamp(34px,5vw,52px);line-height:1.05;font-weight:800;letter-spacing:-1px}
+  .hero .role{font-family:'Montserrat';font-weight:600;color:var(--teal);font-size:clamp(17px,2.4vw,22px);margin-top:6px}
+  .hero .loc{color:var(--ink-soft);margin-top:12px;font-size:15px}
+  .contact-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+  .chip{
+    display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink);
+    background:var(--surface);border:1px solid var(--line);padding:9px 15px;border-radius:30px;font-size:14px;
+    transition:.25s;box-shadow:var(--shadow)
+  }
+  .chip:hover{transform:translateY(-2px);border-color:var(--teal);color:var(--teal);box-shadow:var(--shadow-hover)}
+  .chip svg{width:16px;height:16px;stroke:var(--teal)}
+
+  /* ---------- Side nav ---------- */
+  .sidenav{position:sticky;top:96px;align-self:start;padding-top:20px}
+  .sidenav a{
+    display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink-soft);
+    font-family:'Montserrat';font-weight:600;font-size:13px;padding:9px 0;transition:.2s;border-left:2px solid transparent;padding-left:14px;
+  }
+  .sidenav a .tick{width:7px;height:7px;border-radius:50%;background:var(--line);transition:.25s;flex-shrink:0}
+  .sidenav a:hover{color:var(--ink)}
+  .sidenav a.active{color:var(--teal);border-left-color:var(--teal)}
+  .sidenav a.active .tick{background:var(--teal);transform:scale(1.5);box-shadow:0 0 0 4px rgba(60,191,158,.18)}
+
+  /* ---------- Sections ---------- */
+  section{padding:46px 0;scroll-margin-top:90px}
+  .sec-head{display:flex;align-items:center;gap:14px;margin-bottom:28px}
+  .sec-head .num{font-family:'Montserrat';font-weight:800;font-size:14px;color:var(--teal);background:rgba(60,191,158,.12);padding:5px 10px;border-radius:8px}
+  .sec-head h2{font-size:26px;font-weight:700;letter-spacing:-.5px}
+  .lead{font-size:18px;color:var(--ink-soft);max-width:760px}
+
+  /* ---------- Metrics ---------- */
+  .metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px}
+  .metric{
+    background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:26px 22px;
+    box-shadow:var(--shadow);transition:.3s;position:relative;overflow:hidden;
+  }
+  .metric::after{content:'';position:absolute;left:0;bottom:0;height:3px;width:100%;background:linear-gradient(90deg,var(--teal),transparent);transform:scaleX(0);transform-origin:left;transition:transform .5s}
+  .metric:hover{transform:translateY(-5px);box-shadow:var(--shadow-hover)}
+  .metric:hover::after{transform:scaleX(1)}
+  .metric .val{font-family:'Montserrat';font-weight:800;font-size:34px;color:var(--ink);line-height:1}
+  .metric .val .unit{color:var(--teal)}
+  .metric .lab{margin-top:10px;font-size:14px;color:var(--ink-soft);line-height:1.4}
+
+  /* ---------- Achievements ---------- */
+  .ach-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:26px}
+  .ach{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px 22px;box-shadow:var(--shadow);display:flex;gap:14px;transition:.25s}
+  .ach:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover)}
+  .ach .ico{width:38px;height:38px;border-radius:11px;background:rgba(60,191,158,.12);display:grid;place-items:center;flex-shrink:0}
+  .ach .ico svg{width:20px;height:20px;stroke:var(--teal)}
+  .ach p{font-size:15px}
+
+  /* ---------- Skills ---------- */
+  .skills{display:flex;flex-wrap:wrap;gap:11px}
+  .skill{
+    background:var(--surface);border:1px solid var(--line);padding:9px 16px;border-radius:30px;font-size:14px;font-weight:400;
+    cursor:default;transition:.22s;box-shadow:var(--shadow)
+  }
+  .skill:hover{background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff;border-color:transparent;transform:translateY(-2px) scale(1.04)}
+
+  /* ---------- Timeline ---------- */
+  .timeline{position:relative;padding-left:34px}
+  .timeline::before{content:'';position:absolute;left:9px;top:8px;bottom:8px;width:2px;background:var(--line)}
+  .job{position:relative;margin-bottom:18px}
+  .job::before{content:'';position:absolute;left:-30px;top:24px;width:14px;height:14px;border-radius:50%;background:var(--surface);border:3px solid var(--teal);box-shadow:0 0 0 4px var(--bg);transition:.3s}
+  .job.open::before{background:var(--teal)}
+  .job-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;transition:.3s}
+  .job-card:hover{box-shadow:var(--shadow-hover)}
+  .job-head{padding:20px 24px;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+  .job-head h3{font-size:18px;font-weight:700}
+  .job-head .co{color:var(--teal);font-family:'Montserrat';font-weight:600;font-size:14px;margin-top:3px}
+  .job-head .meta{color:var(--ink-soft);font-size:13px;margin-top:6px}
+  .chev{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:var(--bg);display:grid;place-items:center;transition:.3s}
+  .chev svg{width:16px;height:16px;stroke:var(--ink-soft);transition:.3s}
+  .job.open .chev{background:var(--teal)}
+  .job.open .chev svg{stroke:#fff;transform:rotate(180deg)}
+  .job-body{max-height:0;overflow:hidden;transition:max-height .45s ease}
+  .job-body ul{padding:0 24px 22px 44px;list-style:none}
+  .job-body li{position:relative;font-size:15px;color:var(--ink-soft);margin-bottom:11px;line-height:1.55}
+  .job-body li::before{content:'';position:absolute;left:-20px;top:9px;width:7px;height:7px;border-radius:50%;background:var(--teal)}
+
+  /* ---------- Education ---------- */
+  .edu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+  .edu{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:var(--shadow);transition:.25s;border-top:3px solid var(--teal)}
+  .edu:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover)}
+  .edu h4{font-size:16px;font-weight:700}
+  .edu .inst{color:var(--ink-soft);font-size:14px;margin-top:5px}
+  .certs{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+  .cert{background:rgba(60,191,158,.1);color:var(--teal-dark);border:1px solid rgba(60,191,158,.25);padding:8px 14px;border-radius:10px;font-size:13px;font-family:'Montserrat';font-weight:600}
+  [data-theme="dark"] .cert{color:#7fdcc2}
+
+  /* ---------- Reveal anim ---------- */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  footer{text-align:center;padding:40px 0 60px;color:var(--ink-soft);font-size:13px}
+  footer .ref{font-family:'Montserrat';font-weight:600;color:var(--ink);margin-bottom:6px}
+
+  /* ---------- Responsive ---------- */
+  @media(max-width:860px){
+    .layout{grid-template-columns:1fr;gap:0}
+    .sidenav{display:none}
+    .hero{padding:60px 0 40px}
+  }
+  @media print{
+    .topbar,.sidenav,.controls,.chev,.hero::before{display:none!important}
+    body{background:#fff;color:#000}
+    .layout{display:block}
+    .job-body{max-height:none!important}
+    .reveal{opacity:1!important;transform:none!important}
+    section{padding:18px 0;page-break-inside:avoid}
+    .metric,.ach,.job-card,.edu,.skill,.chip{box-shadow:none;border:1px solid #ccc}
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="logo"><span class="dot">DL</span> Dan Lockwood</div>
+    <div class="controls">
+      <button class="btn" id="themeBtn" aria-label="Toggle theme"><span id="themeIcon">🌙</span><span id="themeTxt">Dark</span></button>
+      <button class="btn primary" onclick="window.print()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        Save as PDF
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <div class="avatar">DL</div>
+      <div>
+        <h1>Dan Lockwood</h1>
+        <div class="role">Senior Lead Business Analyst</div>
+        <div class="loc">📍 Manchester, UK</div>
+        <div class="contact-row">
+          <a class="chip" href="tel:07730773235"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>07730 773235</a>
+          <a class="chip" href="mailto:me@danlockwood.co.uk"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>me@danlockwood.co.uk</a>
+          <a class="chip" href="https://linkedin.com/in/danlockw00d" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>linkedin.com/in/danlockw00d</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- MAIN LAYOUT -->
+<div class="layout">
+  <!-- SIDE NAV -->
+  <nav class="sidenav" id="sidenav">
+    <a href="#profile" data-sec="profile"><span class="tick"></span>Profile</a>
+    <a href="#metrics" data-sec="metrics"><span class="tick"></span>Impact</a>
+    <a href="#achievements" data-sec="achievements"><span class="tick"></span>Achievements</a>
+    <a href="#expertise" data-sec="expertise"><span class="tick"></span>Expertise</a>
+    <a href="#experience" data-sec="experience"><span class="tick"></span>Experience</a>
+    <a href="#education" data-sec="education"><span class="tick"></span>Education</a>
+  </nav>
+
+  <main>
+    <!-- PROFILE -->
+    <section id="profile" class="reveal">
+      <div class="sec-head"><span class="num">01</span><h2>Profile</h2></div>
+      <p class="lead">Senior Lead Business Analyst with 10+ years' experience delivering end-to-end business analysis on complex, multi-country transformation programmes for FTSE 100 organisations and regulated scale-ups. Track record of defining BA standards, mentoring practitioners, prioritising large backlogs, and translating ambiguous business problems into measurable outcomes. Skilled in Agile, SAFe, WSJF, Lean Six Sigma and stakeholder management up to executive level.</p>
+    </section>
+
+    <!-- METRICS -->
+    <section id="metrics" class="reveal">
+      <div class="sec-head"><span class="num">02</span><h2>Impact at a glance</h2></div>
+      <div class="metrics">
+        <div class="metric"><div class="val" data-target="1200" data-suffix=""><span class="n">0</span></div><div class="lab">Analyst hours saved per year via the BA Playbook</div></div>
+        <div class="metric"><div class="val" data-prefix="£" data-target="4" data-suffix="m"><span class="n">0</span></div><div class="lab">Early revenue captured by accelerating MVP release</div></div>
+        <div class="metric"><div class="val" data-target="50" data-suffix="%"><span class="n">0</span></div><div class="lab">Faster analyst onboarding at Psychiatry-UK</div></div>
+        <div class="metric"><div class="val" data-prefix="£" data-target="1.8" data-suffix="m"><span class="n">0</span></div><div class="lab">Annual savings delivered at FIS</div></div>
+        <div class="metric"><div class="val" data-target="40" data-suffix="+"><span class="n">0</span></div><div class="lab">Practitioners adopting the BA Playbook</div></div>
+        <div class="metric"><div class="val" data-target="11" data-suffix=""><span class="n">0</span></div><div class="lab">Scrum teams aligned through PI Planning</div></div>
+      </div>
+    </section>
+
+    <!-- ACHIEVEMENTS -->
+    <section id="achievements" class="reveal">
+      <div class="sec-head"><span class="num">03</span><h2>Key achievements</h2></div>
+      <div class="ach-grid">
+        <div class="ach"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div><p>Defined and rolled out a Business Analysis Playbook adopted by 40+ practitioners, saving approximately 1,200 analyst hours per year.</p></div>
+        <div class="ach"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div><p>Accelerated MVP release by 3 months through WSJF backlog prioritisation, capturing £4m of early revenue.</p></div>
+        <div class="ach"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 20v-6M6 20V10M18 20V4"/></svg></div><p>Reduced new analyst onboarding time by 50% through structured BA standards and a central knowledge base.</p></div>
+        <div class="ach"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12 2 15 9 22 9 17 14 19 21 12 17 5 21 7 14 2 9 9 9"/></svg></div><p>Raised BA chapter maturity from 2.1 to 3.4 through coaching and structured peer-review rituals.</p></div>
+        <div class="ach"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><p>Facilitated quarterly PI Planning across 11 Scrum teams, reducing dependency-related blockers by 25%.</p></div>
+        <div class="ach"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><p>Delivered £1.8m annual savings at FIS through process optimisation and operating model redesign.</p></div>
+      </div>
+    </section>
+
+    <!-- EXPERTISE -->
+    <section id="expertise" class="reveal">
+      <div class="sec-head"><span class="num">04</span><h2>Core expertise</h2></div>
+      <div class="skills" id="skills"></div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="reveal">
+      <div class="sec-head"><span class="num">05</span><h2>Professional experience</h2></div>
+      <div class="timeline" id="timeline"></div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education" class="reveal">
+      <div class="sec-head"><span class="num">06</span><h2>Education &amp; certifications</h2></div>
+      <div class="edu-grid">
+        <div class="edu"><h4>BSc (Hons) Psychology</h4><div class="inst">University of Salford · 2:1</div></div>
+        <div class="edu"><h4>MSc Forensic Psychology</h4><div class="inst">University of Salford · recently completed</div></div>
+      </div>
+      <div class="certs">
+        <span class="cert">MoR Practitioner — Risk Management</span>
+        <span class="cert">MSP Practitioner — Programme Management</span>
+        <span class="cert">Lean Six Sigma Green Belt</span>
+        <span class="cert">ITIL Foundation V3</span>
+      </div>
+    </section>
+
+    <footer>
+      <div class="ref">References available on request</div>
+      <div>Dan Lockwood · Senior Lead Business Analyst · Manchester, UK</div>
+    </footer>
+  </main>
+</div>
+
+<script>
+/* ---------- Data ---------- */
+const skills = ["Business Analysis","Requirements Elicitation","Agile & Scrum / SAFe","Process Mapping","Stakeholder Management","Backlog Prioritisation (WSJF)","Data Analysis","Mentoring & Coaching","Lean Six Sigma","BPMN / UML"];
+
+const jobs = [
+  {title:"Lead Business Analyst", co:"Psychiatry-UK", meta:"Manchester (Remote) · May 2025 – Present", open:true, points:[
+    "Lead business analysis across the ADHD assessment and titration pathway, a regulated clinical service supporting 40,000+ NHS and private patients annually.",
+    "Partner with clinicians, product and engineering teams to elicit, document and prioritise a 300+ item backlog, driving a 15% increase in sprint throughput.",
+    "Embedded consistent BA standards (Agile, HCD, requirements templates) and a central knowledge base, cutting onboarding time for new analysts by 50%.",
+    "Line manage and coach 4 junior Business Analysts; introduced a skills matrix and peer-review rituals, raising chapter maturity score from 2.1 to 3.4."
+  ]},
+  {title:"Lead Business Analyst", co:"BT Business", meta:"Manchester · May 2022 – May 2025", open:false, points:[
+    "Led end-to-end business analysis for the One Business Order Tracking and Global Fabric programmes across 8 countries.",
+    "Defined and rolled out a Business Analysis Playbook adopted by 40+ practitioners, saving approximately 1,200 analyst hours per year.",
+    "Spearheaded backlog prioritisation using WSJF; accelerated MVP release by 3 months and captured £4m of early revenue.",
+    "Facilitated quarterly PI Planning across 11 Scrum teams, reducing dependency-related blockers by 25%."
+  ]},
+  {title:"Senior Business Process Manager", co:"FIS Treasury and Settlement", meta:"Manchester · Oct 2021 – Apr 2022", open:false, points:[
+    "Led requirements and process design for migration of legacy workflows across 13 systems onto a modern workflow platform.",
+    "Reduced client onboarding cycle time from 14 days to 5 days through process re-engineering and clearer service hand-offs.",
+    "Established a risk and controls framework ensuring full SOX compliance and zero audit findings.",
+    "Identified optimisation opportunities delivering £1.8m annual savings."
+  ]},
+  {title:"Customer Experience Designer", co:"BT Wholesale", meta:"London · Sep 2019 – Oct 2021", open:false, points:[
+    "Led customer-centric analysis and discovery to simplify wholesale broadband provisioning.",
+    "Improved customer satisfaction from 78% to 89% through journey mapping and pain-point removal.",
+    "Used Design Thinking, Lean Startup and Agile experiments to validate hypotheses, realising £3m incremental revenue."
+  ]},
+  {title:"Business Improvement Consultant", co:"BT — M2M / IoT Team", meta:"London · Sep 2018 – Sep 2019", open:false, points:[
+    "Analysed and re-designed process automation for M2M SIM provisioning, doubling daily connection capacity.",
+    "Authored a target operating model for IoT services, enabling scalable rollout into 5 new vertical markets."
+  ]},
+  {title:"Business Process & Continuous Improvement Lead", co:"Carphone Warehouse (now Currys plc)", meta:"London · Apr 2013 – Aug 2018", open:false, points:[
+    "Led business process re-engineering and continuous improvement across customer service operations.",
+    "Applied Lean Six Sigma to drive operational and cost efficiencies.",
+    "Improved end-to-end customer journey processes, reducing friction and increasing satisfaction scores."
+  ]}
+];
+
+/* ---------- Render skills ---------- */
+const skillsEl = document.getElementById('skills');
+skills.forEach((s,i)=>{const el=document.createElement('span');el.className='skill';el.textContent=s;el.style.transitionDelay=(i*30)+'ms';skillsEl.appendChild(el);});
+
+/* ---------- Render timeline ---------- */
+const tl = document.getElementById('timeline');
+jobs.forEach((j,i)=>{
+  const job=document.createElement('div');
+  job.className='job'+(j.open?' open':'');
+  job.innerHTML=`
+    <div class="job-card">
+      <div class="job-head">
+        <div>
+          <h3>${j.title}</h3>
+          <div class="co">${j.co}</div>
+          <div class="meta">${j.meta}</div>
+        </div>
+        <div class="chev"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="job-body"><ul>${j.points.map(p=>`<li>${p}</li>`).join('')}</ul></div>
+    </div>`;
+  tl.appendChild(job);
+  const head=job.querySelector('.job-head');
+  const body=job.querySelector('.job-body');
+  function set(open){ job.classList.toggle('open',open); body.style.maxHeight=open?body.scrollHeight+'px':'0'; }
+  head.addEventListener('click',()=>set(!job.classList.contains('open')));
+  // init open card height after layout
+  requestAnimationFrame(()=>{ if(j.open) body.style.maxHeight=body.scrollHeight+'px'; });
+});
+
+/* ---------- Theme toggle ---------- */
+let dark=false;
+const tBtn=document.getElementById('themeBtn');
+tBtn.addEventListener('click',()=>{
+  dark=!dark;
+  document.documentElement.setAttribute('data-theme',dark?'dark':'light');
+  document.getElementById('themeIcon').textContent=dark?'☀️':'🌙';
+  document.getElementById('themeTxt').textContent=dark?'Light':'Dark';
+  // recompute open job heights after theme transition
+  document.querySelectorAll('.job.open .job-body').forEach(b=>b.style.maxHeight=b.scrollHeight+'px');
+});
+
+/* ---------- Count-up metrics ---------- */
+function animateVal(el){
+  const target=parseFloat(el.dataset.target);
+  const prefix=el.dataset.prefix||'';
+  const suffix=el.dataset.suffix||'';
+  const decimals=(target%1!==0)?1:0;
+  const nEl=el.querySelector('.n');
+  const dur=1400; const start=performance.now();
+  function step(now){
+    const p=Math.min((now-start)/dur,1);
+    const eased=1-Math.pow(1-p,3);
+    const cur=(target*eased);
+    let txt=decimals?cur.toFixed(1):Math.round(cur).toLocaleString('en-GB');
+    el.innerHTML=`${prefix}${txt}<span class="unit">${suffix}</span>`;
+    if(p<1) requestAnimationFrame(step);
+    else el.innerHTML=`${prefix}${decimals?target.toFixed(1):target.toLocaleString('en-GB')}<span class="unit">${suffix}</span>`;
+  }
+  requestAnimationFrame(step);
+}
+
+/* ---------- Reveal + metric trigger ---------- */
+const metricsDone=new Set();
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('in');
+      if(e.target.id==='metrics' && !metricsDone.has(e.target)){
+        metricsDone.add(e.target);
+        e.target.querySelectorAll('.metric .val').forEach((v,i)=>setTimeout(()=>animateVal(v),i*120));
+      }
+    }
+  });
+},{threshold:.18});
+document.querySelectorAll('.reveal').forEach(s=>io.observe(s));
+
+/* ---------- Scroll spy ---------- */
+const navLinks=document.querySelectorAll('.sidenav a');
+const spy=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      navLinks.forEach(l=>l.classList.toggle('active',l.dataset.sec===e.target.id));
+    }
+  });
+},{rootMargin:'-40% 0px -55% 0px'});
+document.querySelectorAll('section').forEach(s=>spy.observe(s));
+</script>
+</body>
+</html>
